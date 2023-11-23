@@ -12,6 +12,7 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      // Agrega otras reglas de carga si es necesario
     ],
   },
 };

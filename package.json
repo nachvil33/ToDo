@@ -4,7 +4,8 @@
   "description": "A todo list with jest test and webpack",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "webpack"
   },
   "jest": {
     "testEnvironment": "node",
@@ -28,6 +29,8 @@
   },
   "homepage": "https://github.com/nachvil33/ToDo#readme",
   "devDependencies": {
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
   }
 }
