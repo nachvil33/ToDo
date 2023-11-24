@@ -10,58 +10,51 @@ const createTodo = (name, priority, date, details, checked = false) => ({ id: ge
 // Data Controller
 const DataController = (() => {
   let projects = loadFromLocalStorage('projects');
-
   const saveProjects = () => saveToLocalStorage('projects', projects);
   const addProject = (name) => {
     const newProject = createProject(name);
     projects.push(newProject);
     saveProjects();
   };
-  const addTodoToProject = (projectId, { name, priority, date, details, checked }) => {
+  const addTodoToProject = (projectId, todoData) => {
     const project = projects.find(p => p.id === projectId);
     if (project) {
-      const newTodo = createTodo(name, priority, date, details, checked);
+      const newTodo = createTodo(todoData.name, todoData.priority, todoData.date, todoData.details, todoData.checked);
       project.todos.push(newTodo);
       saveProjects();
     }
   };
   const getProjects = () => projects;
-  // ... Other CRUD methods
-
   return { addProject, addTodoToProject, getProjects };
 })();
 
 // DOM Controller
 const DOMController = (() => {
+  const projectsContainer = document.getElementById('projects-container');
+  const todosContainer = document.getElementById('todos-container');
   const renderProjects = () => {
+    projectsContainer.innerHTML = '';
     const projects = DataController.getProjects();
-    const projectsContainer = document.getElementById('projects-container');
-    projectsContainer.innerHTML = ''; // Clear existing projects
     projects.forEach(project => {
       const projectElement = document.createElement('div');
       projectElement.textContent = project.name;
+      projectElement.addEventListener('click', () => {
+        DOMController.renderTodos(project.id);
+      });
       projectsContainer.appendChild(projectElement);
     });
   };
   const renderTodos = (projectId) => {
+    todosContainer.innerHTML = '';
     const project = DataController.getProjects().find(p => p.id === projectId);
     if (project) {
-      const todosContainer = document.getElementById('todos-container') || document.createElement('ul');
-      todosContainer.id = 'todos-container';
-      todosContainer.innerHTML = ''; // Clear existing todos
       project.todos.forEach(todo => {
         const todoElement = document.createElement('li');
         todoElement.textContent = todo.name;
         todosContainer.appendChild(todoElement);
       });
-      if (!document.getElementById('todos-container')) {
-        const projectsContainer = document.getElementById('projects-container');
-        projectsContainer.appendChild(todosContainer);
-      }
     }
   };
-  // ... Other rendering methods
-
   return { renderProjects, renderTodos };
 })();
 
@@ -69,9 +62,28 @@ const DOMController = (() => {
 const App = (() => {
   const init = () => {
     DOMController.renderProjects();
-    // ... Additional initialization logic
   };
   return { init };
 })();
 
 document.addEventListener('DOMContentLoaded', App.init);
+
+// Event Listeners for adding project and todo
+document.getElementById('add-project-btn').addEventListener('click', function () {
+  const projectName = document.getElementById('project-name').value;
+  DataController.addProject(projectName);
+  DOMController.renderProjects();
+});
+
+document.getElementById('add-todo-btn').addEventListener('click', function () {
+  const projectName = document.getElementById('project-name').value;
+  const todoName = document.getElementById('todo-name').value;
+  const priority = document.getElementById('priority').value;
+  const dueDate = document.getElementById('due-date').value;
+  const details = document.getElementById('details').value;
+  const projectId = DataController.getProjects().find(p => p.name === projectName)?.id;
+  if (projectId) {
+    DataController.addTodoToProject(projectId, { name: todoName, priority, date: dueDate, details });
+    DOMController.renderTodos(projectId);
+  }
+});
