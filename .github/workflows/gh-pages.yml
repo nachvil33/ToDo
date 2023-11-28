@@ -26,15 +26,11 @@ jobs:
 
     - name: Deploy to Development
       run: |
-        # Puedes agregar aquí comandos específicos para copiar o mover tu aplicación
-        # desde la carpeta de construcción a la ubicación deseada en tu repositorio.
-        # Ejemplo:
-        # cp -r build/* /ruta/deseada
+        # Copia los archivos desde la carpeta de construcción (src) a la ubicación deseada
+        cp -r src/* 
 
     - name: Commit and push changes
       run: |
-        git config --global user.email "you@example.com"
-        git config --global user.name "Your Name"
         git add .
         git commit -m "Deploy to Development"
         git push origin development  # o el nombre de tu rama de desarrollo
