@@ -1,9 +1,9 @@
-name: Deploy to GitHub Pages
+name: Deploy to Development
 
 on:
   push:
     branches:
-      - develop  # o el nombre de tu rama principal
+      - development  # o el nombre de tu rama de desarrollo
 
 jobs:
   deploy:
@@ -24,8 +24,17 @@ jobs:
     - name: Build
       run: npm run build  # Asegúrate de que este comando construye tu sitio en la carpeta "build" o similar
 
-    - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@3.7.1
-      with:
-        branch: gh-pages  # la rama a la que se enviará la construcción
-        folder: src       # la carpeta desde la cual se servirá la página
+    - name: Deploy to Development
+      run: |
+        # Puedes agregar aquí comandos específicos para copiar o mover tu aplicación
+        # desde la carpeta de construcción a la ubicación deseada en tu repositorio.
+        # Ejemplo:
+        # cp -r build/* /ruta/deseada
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.email "you@example.com"
+        git config --global user.name "Your Name"
+        git add .
+        git commit -m "Deploy to Development"
+        git push origin development  # o el nombre de tu rama de desarrollo
