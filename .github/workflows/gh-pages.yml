@@ -27,7 +27,7 @@ jobs:
     - name: Deploy to Development
       run: |
         # Copia los archivos desde la carpeta de construcción (src) a la ubicación deseada
-        cp -r src/* 
+        cp -r src/* /
 
     - name: Commit and push changes
       run: |
