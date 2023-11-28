@@ -4,33 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
-  <title>Todo App</title>
+  <title>Project App</title>
 </head>
 <body>
-  <div id="app">
+  <header>
     <h1>To Do List</h1>
-    <div id="projects-container"></div>
-    <ul id="todos-container"></ul>
-    <form id="todo-form">
+  </header>
+  <div id="app">
+    <ul id="projects-container"></ul>
+    <form id="project-form">
       <label for="project-name">Project Name:</label>
       <input type="text" id="project-name" name="project-name">
-      <button type="button" id="add-project-btn">Add Project</button>
-      <br>
-      <label for="todo-name">Todo Name:</label>
-      <input type="text" id="todo-name" name="todo-name">
-      <label for="priority">Priority:</label>
-      <select id="priority" name="priority">
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
-      </select>
       <label for="due-date">Due Date:</label>
       <input type="date" id="due-date" name="due-date">
       <label for="details">Details:</label>
       <textarea id="details" name="details"></textarea>
-      <button type="button" id="add-todo-btn">Add Todo</button>
+      <button type="button" id="add-project-btn">Add Project</button>
     </form>
   </div>
+  <footer>
+    A <a href="https://twitter.com/FullTechFlowCEO">Full Tech Flow Solutions®</a> Product By <a href="https://www.linkedin.com/in/ignacio-manuel-castañeda-acuña-1a4b07243">Eng. Ignacio Manuel Castañeda Acuña</a>
+  </footer>
   <script src="app.js"></script>
 </body>
 </html>
